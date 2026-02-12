@@ -26,21 +26,7 @@ export const renderSuccess = (msg) => {
     success.textContent = msg;
 }
 
-    // discoverBtn.addEventListener('click', async () => {
-    //     const data = await getRandomPokemon();
-    //     const li = document.createElement('li');
-    //     const img = document.createElement('img');
-    //     img.src = data.data.sprite;
-    //     li.appendChild(img);
-    //     const name = document.createElement('p');
-    //     name.textContent = data.data.name;
-    //     const type = document.createElement('p');
-    //     type.textContent = data.data.type;
-    //     li.appendChild(name);
-    //     li.appendChild(type);
-    //     recentDiscover.textContent = `${data.data.name} was discovered`;
-    //     discoverUl.prepend(li);
-    // })
+
 
 // const pokeInput = document.getElementById('pokemon-input');
 // const pokeButton = document.getElementById('poke-button');
