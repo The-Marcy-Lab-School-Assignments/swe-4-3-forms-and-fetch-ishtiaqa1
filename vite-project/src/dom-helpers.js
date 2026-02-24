@@ -26,23 +26,21 @@ export const renderSuccess = (msg) => {
     success.textContent = msg;
 }
 
+const pokeInput = document.getElementById('pokemon-input');
+const pokeButton = document.getElementById('poke-button');
+const pokemon = document.getElementById('pokemon')
 
-
-// const pokeInput = document.getElementById('pokemon-input');
-// const pokeButton = document.getElementById('poke-button');
-// const pokemon = document.getElementById('pokemon')
-
-// pokeButton.addEventListener('click', async () => {
-//     const data = await fetchPoke(pokeInput.value);
-//     pokemon.innerHTML = '';
-//     const img = document.createElement('img');
-//     img.src = data.data.sprite;
-//     const name = document.createElement('p');
-//     name.textContent = data.data.name;
-//     const type = document.createElement('p');
-//     type.textContent = data.data.type;
-//     pokemon.appendChild(img)
-//     pokemon.appendChild(name);
-//     pokemon.appendChild(type);
-//     pokeInput.value='';
-// })
+pokeButton.addEventListener('click', async () => {
+    const data = await fetchPoke(pokeInput.value);
+    pokemon.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = data.data.sprite;
+    const name = document.createElement('p');
+    name.textContent = data.data.name;
+    const type = document.createElement('p');
+    type.textContent = data.data.type;
+    pokemon.appendChild(img)
+    pokemon.appendChild(name);
+    pokemon.appendChild(type);
+    pokeInput.value='';
+})

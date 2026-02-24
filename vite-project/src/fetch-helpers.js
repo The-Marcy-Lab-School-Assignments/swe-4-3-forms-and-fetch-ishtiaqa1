@@ -23,7 +23,7 @@ const discovered = []
 
 export const getRandomPokemon = async () => {
     try {
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 150)}`);
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 150) + 1}`);
         if (!res.ok) {
             throw Error('Failed fetch');
         }

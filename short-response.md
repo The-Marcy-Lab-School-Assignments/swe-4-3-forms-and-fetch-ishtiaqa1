@@ -18,6 +18,14 @@ fetch('https://pokeapi.co/api/v2/pokemon/pikachu')
 
 **Your Answer:**
 
+The bug is that the first `.then()` never `return`s anything, `readingPromise` is assigned locally but not `return`ed, so the next `.then()` receives `undefined`. The fix is to add a `return` statement
+
+```js
+  .then((response) => {
+    if (!response.ok) throw Error(`Fetch failed.`);
+    return response.json();
+  })
+```
 
 ## Question 2: Development Servers and CORS
 
@@ -25,6 +33,7 @@ A student opens their `index.html` file directly in the browser (using the `file
 
 **Your Answer:**
 
+The `file://` protocol doesn't go through a real web server, and browsers block **ES modules** and `fetch()` requests made from it due to **CORS** and security restrictions. The student should run a local development server so the page is served over `http://localhost`, which the browser treats as a proper origin and allows these features to work.
 
 ## Question 3: The `fetch` Response Object
 
@@ -37,7 +46,7 @@ const data = await response.json();
 
 **Your Answer:**
 
-
+`.catch()` only catches network-level failures, it does not catch **HTTP** `error` responses like `404` or `500`, because from fetch's perspective those requests succeeded in reaching the server. Without checking `response.ok`, a `404` response would still go to `response.json()`, likely parsing an `error` page body and producing confusing or broken data rather than solving the actual problem.
 
 ## Question 4: Async/Await Conversion
 
@@ -61,6 +70,18 @@ const getJoke = () => {
 
 **Your Answer:**
 
+```js
+  const getJoke = async () => {
+    try {
+      const response = await fetch('https://v2.jokeapi.dev/joke/Programming?type=twopart');
+      if (!response.ok) throw Error(`Fetch failed. ${response.status}`);
+        const data = await response.json();
+        return { data, error: null };
+    } catch (error) {
+        return { data: null, error };
+    }
+  };
+```
 
 
 ## Question 5: `event.preventDefault()` and Form Handling
@@ -78,7 +99,7 @@ What is wrong? What happens when they click submit, and how do they fix it?
 
 **Your Answer:**
 
-
+The handler is missing `event.preventDefault()`. When the form is submitted, the browser's default behavior is to reload the page, which wipes out any DOM changes before the user can see them. The fix is to add `event.preventDefault()` as the first line of the handler so the page stays put and the output can actually be displayed.
 
 ## Question 6: Putting It All Together
 
@@ -97,3 +118,4 @@ The steps below describe how to build a form that fetches Pokemon data from `htt
 
 **Your Answer:**
 
+First you build the **HTML** structure (J), then attach the **submit listener** (E). When the form is submitted you prevent the default reload (B), grab the input value (G), and fire off the `fetch` request (H). Then you validate the response (C), parse the body (A), update the **DOM** (D), and reset the form (I). `Error` handling (F) sits at the end to catch anything that went wrong in the steps above.

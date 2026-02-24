@@ -37,3 +37,5 @@ form.addEventListener('submit', async (event) => {
         error.textContent = '';
     }
 })
+
+getAndRenderPokemon()
